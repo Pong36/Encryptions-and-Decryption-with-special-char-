@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Encrypt & Decrypt</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            width: 350px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 80px;
+            margin: 10px 0;
+            padding: 8px;
+            resize: none;
+        }
+
+        button {
+            padding: 8px 15px;
+            margin: 5px;
+            border: none;
+            background: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        .output {
+            background: #eee;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Encrypt & Decrypt Tool</h2>
+
+    <textarea id="input" placeholder="Enter your text..."></textarea>
+
+    <br>
+
+    <button onclick="encrypt()">Encrypt</button>
+    <button onclick="decrypt()">Decrypt</button>
+
+    <br>
+
+    <textarea id="output" class="output" placeholder="Result..." readonly></textarea>
+</div>
+
+<script>
+    // Cipher Maps
+    const cipherMap = {
+        a: '@', b: '#', c: '$', d: '%', e: '^', f: '&', g: '*', h: '(', i: ')',
+        j: '-', k: '+', l: '=', m: '{', n: '}', o: '[', p: ']', q: ':', r: ';',
+        s: '<', t: '>', u: '?', v: '/', w: '~', x: '`', y: '|', z: '!'
+    };
+
+    const decipherMap = {};
+
+    // Reverse mapping
+    for (let key in cipherMap) {
+        decipherMap[cipherMap[key]] = key;
+    }
+
+
+    function encrypt() {
+        const text = document.getElementById("input").value.toLowerCase();
+        let result = "";
+
+        for (let char of text) {
+            if (cipherMap[char]) {
+                result += cipherMap[char];
+            } else {
+                result += char; // Keep spaces & numbers
+            }
+        }
+
+        document.getElementById("output").value = result;
+    }
+
+
+    function decrypt() {
+        const text = document.getElementById("input").value;
+        let result = "";
+
+        for (let char of text) {
+            if (decipherMap[char]) {
+                result += decipherMap[char];
+            } else {
+                result += char;
+            }
+        }
+
+        document.getElementById("output").value = result;
+    }
+</script>
+
+</body>
+</html>
